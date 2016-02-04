@@ -113,3 +113,9 @@ Then do a query.
 ```
 node ./bin/cli.js --host localhost --db test -t people
 ```
+
+Now you might want to clear the whole table.
+```
+node ./bin/cli.js --host localhost --db test -D people
+```
+
