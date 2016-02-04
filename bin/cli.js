@@ -9,14 +9,14 @@ const Command = Recli.Commander;
 
 const Opts = [
     ['l' ,'ls'                , 'list dbs'],
-    ['T' , 'tables'           , 'list tables'],
-    ['t' , 'table='           , 'list table content'],
-    [''  , 'filter='          , 'filter by attribute:value'],
-    [''  , 'return-changes'   , 'return changes'],
-    ['I' , 'insert='          , 'fixture.json'],
-    ['D' , 'delete='          , 'delete table contents'],
+    ['T' , 'tablelist'        , 'list tables'],
     ['C' , 'tablecreate='     , 'create table'],
     [''  , 'tabledrop='       , 'drop table'],
+    ['t' , 'table='           , 'list table content'],
+    ['I' , 'insert='          , 'insert, with reference to json file'],
+    ['D' , 'delete='          , 'delete table contents'],
+    [''  , 'filter='          , 'filter by attribute:value'],
+    [''  , 'return-changes'   , 'return changes'],
     [''  , 'dbcreate='        , 'create db'],
     [''  , 'dbdrop='          , 'drop db'],
     ['h'  , 'help'            , 'display this help'],
@@ -84,11 +84,11 @@ const runner = function (options,args) {
     }
 
     if (options.ls) {
-        return commander.exec('dbs');
+        return commander.exec('dblist');
     }
 
     if (options.tables) {
-        return commander.exec('tables');
+        return commander.exec('tablelist');
     }
 
     if (options.table) {
