@@ -2,7 +2,7 @@
 
 A CLI runner and REPL for [Rethinkdb](https://github.com/rethinkdb/rethinkdb)
 
-Work in progress, but it's still very usable. Expect to meet a wrinkle here and there. Shout out, or fork and fix.
+Work in progress, but it's still of use. Expect to see a wrinkle here and there, especially in the REPL. Shout out. Or fork, fix and pull a request.
 
 ### CLI 
 
