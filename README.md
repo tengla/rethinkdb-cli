@@ -62,9 +62,9 @@ Connected to 192.168.99.101:28015/test
 ]
 ```
 
-### Faker
+#### To generate a fixture with the help of [Faker](https://github.com/FotoVerite/Faker.js)
 
-#### To generate a fixture by the help of Faker
+This might prove helpful when you want to fill a table with lots of fake data.
 
 ```
 node ./bin/faker.js --name people -n 5 \
