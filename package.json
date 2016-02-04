@@ -4,7 +4,8 @@
   "description": "A CLI and REPL for rethinkdb",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/run.js",
+    "start": "node ./bin/cli.js",
+    "repl": "node ./bin/repl.js",
     "test": "lab -c -L"
   },
   "author": "",

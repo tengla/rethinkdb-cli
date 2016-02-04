@@ -1,3 +1,4 @@
+'use strict';
 
 const Code = require('code');   // assertion library
 const Lab = require('lab');

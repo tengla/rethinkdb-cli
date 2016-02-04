@@ -1,7 +1,5 @@
 'use strict';
 
-const R = require('rethinkdb');
-const Each = require('lodash/each');
 const GetOpt = require('node-getopt');
 const Recli = require('../index');
 const Readfile = Recli.Readfile;
@@ -29,12 +27,13 @@ const Opts = [
 ];
 
 const Config = function (options) {
+
     return {
         db: options.db || 'test',
         host: options.host,
         port: options.port,
         auth_key: options.auth_key
-    }
+    };
 };
 
 const opts = GetOpt.create(Opts)
@@ -43,6 +42,7 @@ const opts = GetOpt.create(Opts)
 const commander = new Command();
 
 commander.on('connect', (msg) => {
+
     if (getOpt.options.verbose) {
         console.log(msg);
     }
@@ -50,11 +50,13 @@ commander.on('connect', (msg) => {
 });
 
 commander.on('message', (msg) => {
+
     console.log(msg);
-    commander.close()
+    commander.close();
 });
 
 commander.on('error', (err) => {
+
     console.log(err);
     commander.close();
 });
@@ -63,22 +65,23 @@ const getOpt = opts.parseSystem();
 
 if (getOpt.options.version) {
     Readfile('./package.json').then( (pkg) => {
+
         console.log('Version ' + pkg.version);
     });
-} 
+}
 else if (Object.keys(getOpt.options).length < 1 ) {
     opts.showHelp();
 }
 else {
-    commander.connect(Config(getOpt.options));    
+    commander.connect(Config(getOpt.options));
 }
 
 const runner = function (options,args) {
-    
+
     if (options.dbcreate) {
         return commander.exec('dbCreate', [options.dbcreate]);
     }
-    
+
     if (options.dbdrop) {
         return commander.exec('dbDrop', [options.dbdrop]);
     }
@@ -94,23 +97,25 @@ const runner = function (options,args) {
     if (options.table) {
         return commander.exec('table', [options.table,options.filter]);
     }
-    
+
     if (options.tablecreate) {
         return commander.exec('tableCreate', [options.tablecreate]);
     }
-    
+
     if (options.tabledrop) {
         return commander.exec('tableDrop', [options.tabledrop]);
     }
-    
+
     if (options.delete) {
         return commander.exec('delete', [options.delete]);
     }
 
     if (options.insert) {
         return Readfile(options.insert).then( (data) => {
+
             commander.exec('insert', [data, options['return-changes']]);
         }, (err) => {
+
             commander.fire('error',[err.msg]);
         });
     }
