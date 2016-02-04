@@ -132,4 +132,4 @@ Thomas Tinnesand Eng
 
 ### Licence
 
-[ISC](https://github.com/athlite/rethinkdb-cli/blob/master/LICENSE)
+[ISC](https://opensource.org/licenses/ISC)
