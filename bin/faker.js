@@ -54,4 +54,4 @@ const pack = {};
 
 pack[Args.name] = objects;
 
-console.log(pack);
+console.log(JSON.stringify(pack,null,4));
