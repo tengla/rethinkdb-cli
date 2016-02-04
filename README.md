@@ -1,7 +1,30 @@
 # rethinkdb-cli
 
 ### CLI 
-```node ./bin/cli.js --help```
+
+```
+node ./bin/cli.js --help
+Usage: node cli.js
+
+  -l, --ls              list dbs
+  -T, --tablelist       list tables
+  -C, --tablecreate=    create table
+      --tabledrop=      drop table
+  -t, --table=          list table content
+  -I, --insert=         insert, with reference to json file
+  -D, --delete=         delete table contents
+      --filter=         filter by attribute:value
+      --return-changes  return changes
+      --dbcreate=       create db
+      --dbdrop=         drop db
+  -h, --help            display this help
+  -v, --version         show version
+      --verbose         be verbose
+      --db=             db name
+      --host=           hostname
+      --port=           port number
+      --auth_key=       authentication key
+```
 
 ### REPL
 ```node ./bin/repl.js```
