@@ -10,15 +10,25 @@ const Commander = function (config) {
     this.store = {};
 };
 
-Commander.prototype.operations = require('./operations');
+Commander.prototype.close = function () {
 
-Commander.prototype.execString = function (line) {
-
-    const args = line.split(' ');
-    const cmd  = args.splice(0,1)[0];
-
-    return this.exec(cmd, args);
+    return this.conn.close();
 };
+
+Commander.prototype.connect = function (config) {
+
+    R.connect(config).then( (c) => {
+
+        this.conn = c;
+        this.fire('connect', ['Connected to ' + this.status()]);
+    }, (err) => {
+
+        this.fire('error', [err.message]);
+    });
+    return this;
+};
+
+Commander.prototype.operations = require('./operations');
 
 Commander.prototype.defaultResolver = function (result) {
 
@@ -44,33 +54,12 @@ Commander.prototype.exec = function (cmd, args) {
     return this;
 };
 
-Commander.prototype.status = function () {
+Commander.prototype.execString = function (line) {
 
-    let message = 'Not connected';
-    if (this.conn) {
-        message = this.conn.host + ':' + this.conn.port;
-        message = message + (this.conn.db ? ('/' + this.conn.db) : '');
-    }
-    return message;
-};
+    const args = line.split(' ');
+    const cmd  = args.splice(0,1)[0];
 
-Commander.prototype.connect = function (config) {
-
-    R.connect(config).then( (c) => {
-
-        this.conn = c;
-        this.fire('connect', ['Connected to ' + this.status()]);
-    }, (err) => {
-
-        this.fire('error', [err.message]);
-    });
-    return this;
-};
-
-Commander.prototype.on = function (name, callback) {
-
-    this.observers[name] = callback;
-    return this;
+    return this.exec(cmd, args);
 };
 
 Commander.prototype.fire = function (name, args) {
@@ -82,9 +71,20 @@ Commander.prototype.fire = function (name, args) {
     method.apply(null,args);
 };
 
-Commander.prototype.close = function () {
+Commander.prototype.on = function (name, callback) {
 
-    return this.conn.close();
+    this.observers[name] = callback;
+    return this;
+};
+
+Commander.prototype.status = function () {
+
+    let message = 'Not connected';
+    if (this.conn) {
+        message = this.conn.host + ':' + this.conn.port;
+        message = message + (this.conn.db ? ('/' + this.conn.db) : '');
+    }
+    return message;
 };
 
 module.exports = Commander;
