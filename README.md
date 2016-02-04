@@ -121,6 +121,11 @@ You can filter too.
 node ./bin/cli.js --host localhost --db test -t people --filter city:'Hilda.*$'
 ```
 
+You might have a few million records. Narrow it down some.
+```
+node ./bin/cli.js --host localhost --db test -t people --limit 100 --skip 500000
+```
+
 Now you might want to clear the whole table.
 ```
 node ./bin/cli.js --host localhost --db test -D people
