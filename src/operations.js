@@ -173,11 +173,6 @@ module.exports = {
 
     delete: function (name) {
 
-        if (!name) {
-            this.fire('error', ['I need a table name to do that']);
-            return this;
-        }
-
         R.table(name).delete().run(this.conn).then(
             this.defaultResolver.bind(this),
             this.defaultRejecter.bind(this)
