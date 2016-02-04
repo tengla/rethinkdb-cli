@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "colors": "^1.1.2",
+    "faker": "^3.0.1",
     "joi": "^7.2.3",
     "lodash": "^4.2.0",
     "minimist": "^1.2.0",

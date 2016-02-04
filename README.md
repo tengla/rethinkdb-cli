@@ -61,3 +61,15 @@ Connected to 192.168.99.101:28015/test
     }
 ]
 ```
+
+### Faker
+
+#### To generate a fixture by the help of Faker
+
+```
+node ./bin/faker.js --name people -n 5 \
+  'name=Faker.name.findName()' \
+  'age=Faker.random.number(34)' \
+  'address=Faker.address.streetAddress()' \
+  'city=Faker.address.city()' > people.json
+```
