@@ -29,8 +29,6 @@ Usage: node cli.js
 ### REPL
 ```node ./bin/repl.js```
 
-#### Available commands 
-
 Commands are as closely mirrored to rethinkdb api as possible
 
 Example: 
