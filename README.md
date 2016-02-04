@@ -2,6 +2,8 @@
 
 A CLI runner and REPL for [Rethinkdb](https://github.com/rethinkdb/rethinkdb)
 
+Work in progress, but it's still very usable. Expect to meet a wrinkle here and there. Shout out, or fork and fix.
+
 ### CLI 
 
 ```
@@ -114,8 +116,20 @@ Then do a query.
 node ./bin/cli.js --host localhost --db test -t people
 ```
 
+You can filter too.
+```
+node ./bin/cli.js --host localhost --db test -t people --filter city:'Hilda.*$'
+```
+
 Now you might want to clear the whole table.
 ```
 node ./bin/cli.js --host localhost --db test -D people
 ```
 
+### Author
+
+Thomas Tinnesand Eng
+
+### Licence
+
+[ISC](https://github.com/athlite/rethinkdb-cli/blob/master/LICENSE)
