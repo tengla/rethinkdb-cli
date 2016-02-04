@@ -15,10 +15,14 @@ Usage: node cli.js
   -C, --tablecreate=    create table
       --tabledrop=      drop table
   -t, --table=          list table content
+      --get=            get object by id [optional]
+      --count           count [optional]
+      --limit=          limit [optional]
+      --skip=           skip [optional]
   -I, --insert=         insert, with reference to json file
   -D, --delete=         delete table contents
-      --filter=         filter by attribute:value
-      --return-changes  return changes
+      --filter=         filter by attribute:value [optional]
+      --return-changes  return changes [optional]
       --dbcreate=       create db
       --dbdrop=         drop db
   -h, --help            display this help
