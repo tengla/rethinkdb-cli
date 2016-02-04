@@ -1,0 +1,27 @@
+{
+    "artists": [
+        {
+            "name": "Frank Zappa"
+        },
+        {
+            "name": "Bon Jovi"
+        },
+        {
+            "name": "Wild Man Fischer"
+        }
+    ],
+    "people": [
+        {
+            "name": "John Doe",
+            "age": 42
+        },
+        {
+            "name": "Sara Jane",
+            "age": 16 
+        },
+        {
+            "name": "Little Boy Floyd",
+            "age": 4
+        }
+    ]
+}
