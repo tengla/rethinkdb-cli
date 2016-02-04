@@ -1,5 +1,7 @@
 # rethinkdb-cli
 
+A CLI runner and REPL for [Rethinkdb](https://github.com/rethinkdb/rethinkdb)
+
 ### CLI 
 
 ```
