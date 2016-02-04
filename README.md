@@ -66,7 +66,7 @@ Connected to 192.168.99.101:28015/test
 
 This might prove helpful when you want to fill a table with lots of fake data.
 ```
-node ./bin/faker.js --name people -n 5 \
+node ./bin/faker.js --name people -n 3 \
   'name=Faker.name.findName()' \
   'age=Faker.random.number(34)' \
   'address=Faker.address.streetAddress()' \
