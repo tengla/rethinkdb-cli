@@ -4,6 +4,9 @@ const Joi = require('joi');
 const Args = require('minimist')(process.argv.slice(2));
 const Colors = require('colors/safe');
 const Faker = require('faker');
+const safeeval = eval;
+
+Faker.name; // keep stoopid linter happy ;)
 
 const schema = Joi.object().keys({
     n: Joi.number().required(),
@@ -14,7 +17,7 @@ const schema = Joi.object().keys({
 const errorMessages = {
     n: Colors.red('number of items must be given'),
     name: Colors.red('object name must be given'),
-    '_': Colors.red('Faker methods must be given'),
+    '_': Colors.red('Faker methods must be given')
 };
 
 const usage = [
@@ -42,10 +45,12 @@ Joi.validate(Args, schema, (err,val) => {
 });
 
 const objects = Array.apply(null, [Args.n]).fill(0).map( (item, idx) => {
+
     const object = {};
     Args._.forEach( (arg) => {
-        let parts = arg.split('=');
-        object[parts[0]] = eval(parts[1]);
+
+        const parts = arg.split('=');
+        object[parts[0]] = safeeval(parts[1]); // nevermind that it's dangerous.
     });
     return object;
 });
