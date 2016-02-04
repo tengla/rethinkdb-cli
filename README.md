@@ -73,6 +73,32 @@ node ./bin/faker.js --name people -n 5 \
   'city=Faker.address.city()' > people.json
 ```
 
+That would yield something like:
+```
+{
+    "people": [
+        {
+            "name": "Lillie Barton",
+            "age": 24,
+            "address": "951 Wuckert Vista",
+            "city": "East Karli"
+        },
+        {
+            "name": "Geovanni Orn",
+            "age": 1,
+            "address": "006 Isai Parkway",
+            "city": "West Jacques"
+        },
+        {
+            "name": "Ms. Frances Eichmann",
+            "age": 22,
+            "address": "3448 Vandervort Fort",
+            "city": "Hilda land"
+        }
+    ]
+}
+```
+
 Create a table.
 ```
 node ./bin/cli.js --host localhost --db test --tablecreate people
