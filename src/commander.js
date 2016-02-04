@@ -1,6 +1,7 @@
 'use strict';
 
 const R = require('rethinkdb');
+const Colors = require('colors');
 
 const Commander = function (config) {
     this.conn = null;
@@ -40,7 +41,7 @@ Commander.prototype.exec = function (cmd, args) {
     if ( op ) {
         op.bind(this).apply(null, args);
     } else {
-        this.fire('error', ['No such operation: \'' + cmd + '\'']);
+        this.fire('error', ['No such operation: \'' + cmd.red + '\'']);
     }
 
     return this;

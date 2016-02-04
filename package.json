@@ -1,17 +1,23 @@
 {
-  "name": "sewer",
-  "version": "1.0.0",
-  "description": "",
+  "name": "rethinkdb-cli",
+  "version": "0.0.1",
+  "description": "A CLI and REPL for rethinkdb",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/run.js",
+    "test": "lab -c -L"
   },
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/athlite/rethinkdb-cli.git"
+  },
   "dependencies": {
     "colors": "^1.1.2",
+    "joi": "^7.2.3",
     "lodash": "^4.2.0",
+    "minimist": "^1.2.0",
     "node-getopt": "^0.2.3",
     "rethinkdb": "^2.2.1"
   },

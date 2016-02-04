@@ -4,7 +4,7 @@ const R = require('rethinkdb');
 
 module.exports = {
     
-    tables: function () {
+    tableList: function () {
         R.tableList().run(this.conn).then( (list) => {
             const message = this.conn.db + ' has ' + list.join(', ');
             this.fire('message', [message]);
@@ -14,7 +14,7 @@ module.exports = {
         return this;
     },
     
-    dbs: function () {
+    dbList: function () {
         
         R.dbList().run(this.conn).then( (list) => {
             const message = this.conn.host + ' has dbs \'' + list.join('\', \'') + '\'';
