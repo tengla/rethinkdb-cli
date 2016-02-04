@@ -23,7 +23,10 @@ const usage = [
     '',
     'DB OPTIONS:',
     '',
-    '--host <host> --port <port> --db <name> --auth_key <auth_key>'
+    '\t--host <host>',
+    '\t--port <port>',
+    '\t--db <name>',
+    '\t--auth_key <auth_key>'
 ];
 
 Joi.validate(Args, schema, function(err,val) {

@@ -84,11 +84,11 @@ const runner = function (options,args) {
     }
 
     if (options.ls) {
-        return commander.exec('dblist');
+        return commander.exec('dbList');
     }
 
-    if (options.tables) {
-        return commander.exec('tablelist');
+    if (options.tablelist) {
+        return commander.exec('tableList');
     }
 
     if (options.table) {
