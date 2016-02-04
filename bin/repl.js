@@ -4,6 +4,7 @@ const Readline = require('readline');
 const Commander = require('../index').Commander;
 const Joi = require('joi');
 const Args = require('minimist')(process.argv.slice(2));
+const Colors = require('colors/safe');
 
 const schema = Joi.object().keys({
     db: Joi.string().required(),
@@ -13,8 +14,8 @@ const schema = Joi.object().keys({
 }).with('db','host','_');
 
 const errorMessages = {
-    db: 'No db specified'.red,
-    host: 'No host specified'.red
+    db: 'No db specified',
+    host: 'No host specified'
 };
 
 const usage = [
@@ -33,8 +34,9 @@ Joi.validate(Args, schema, (err,val) => {
     if (err) {
         const messages = err.details.map( (detail) => {
 
-            return errorMessages[detail.path];
+            return Colors.red(errorMessages[detail.path]);
         });
+
         console.log('\n' + messages.join('\n') + '\n');
         console.log(usage.join('\n'));
         process.exit(1);
