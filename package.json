@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./bin/cli.js",
     "repl": "node ./bin/repl.js",
+    "faker": "node ./bin/faker.js",
     "test": "lab -c -L"
   },
   "author": "",
