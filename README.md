@@ -6,7 +6,7 @@ Work in progress, but it's still highly usable. Expect to see a wrinkle here and
 
 ### CLI 
 
-```sh
+```
 node ./bin/cli.js --help
 Usage: node cli.js
 
@@ -36,7 +36,7 @@ Usage: node cli.js
 ```
 
 ### REPL
-```sh
+```
 node ./bin/repl.js
 ```
 
