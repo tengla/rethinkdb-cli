@@ -16,6 +16,7 @@ const Opts = [
     [''  , 'count'            , 'count [optional]'],
     [''  , 'limit='           , 'limit [optional]'],
     [''  , 'skip='            , 'skip [optional]'],
+    [''  , 'changes'          , 'listen to table changes'],
     ['I' , 'insert='          , 'insert, with reference to json file'],
     ['D' , 'delete='          , 'delete table contents'],
     [''  , 'return-changes'   , 'return changes [optional]'],
@@ -57,6 +58,11 @@ commander.on('message', (msg) => {
 
     console.log(msg);
     commander.close();
+});
+
+commander.on('change', (tableName, item) => {
+
+    console.log(tableName + ' changed :', item);
 });
 
 commander.on('error', (err) => {
@@ -103,6 +109,10 @@ const runner = function (options,args) {
             return commander.fire('error', ['Can\'t do that without the table switch']);
         }
         return commander.exec('get', [options.table, options.get]);
+    }
+
+    if (options.changes) {
+        return commander.exec('changes', [options.table]);
     }
 
     if (options.table) {

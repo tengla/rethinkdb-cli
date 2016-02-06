@@ -32,6 +32,15 @@ const queryFilter = function (query, filter) {
 };
 
 module.exports = {
+    
+    changes: function (name) {
+        R.table(name).changes().run(this.conn).then( (cursor) => {
+            cursor.each((err,item) => {
+                this.fire('change', [name, item]);
+            });
+        }, this.defaultRejecter);
+        return this;
+    },
 
     get: function (name,id) {
 
