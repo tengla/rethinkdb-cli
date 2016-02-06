@@ -2,11 +2,11 @@
 
 A CLI runner and REPL for [Rethinkdb](https://github.com/rethinkdb/rethinkdb)
 
-Work in progress, but it's still of use. Expect to see a wrinkle here and there, especially in the REPL. Shout out. Or fork, fix and pull a request.
+Work in progress, but it's still highly usable. Expect to see a wrinkle here and there, especially in the REPL. Shout out. Or fork, fix and pull a request.
 
 ### CLI 
 
-```
+```sh
 node ./bin/cli.js --help
 Usage: node cli.js
 
@@ -20,6 +20,7 @@ Usage: node cli.js
       --count           count [optional]
       --limit=          limit [optional]
       --skip=           skip [optional]
+      --changes         listen to table changes
   -I, --insert=         insert, with reference to json file
   -D, --delete=         delete table contents
       --return-changes  return changes [optional]
@@ -35,7 +36,9 @@ Usage: node cli.js
 ```
 
 ### REPL
-```node ./bin/repl.js```
+```sh
+node ./bin/repl.js
+```
 
 Commands reflects rethinkdb api as much as possible
 
@@ -73,10 +76,10 @@ Connected to 192.168.99.101:28015/test
 This might prove helpful when you want to fill a table with lots of fake data.
 ```
 node ./bin/faker.js --name people -n 3 \
-  'name=Faker.name.findName()' \
-  'age=Faker.random.number(34)' \
-  'address=Faker.address.streetAddress()' \
-  'city=Faker.address.city()' > people.json
+  'name=name.findName()' \
+  'age=random.number(34)' \
+  'address=address.streetAddress()' \
+  'city=address.city()' > people.json
 ```
 
 That would yield something like:
