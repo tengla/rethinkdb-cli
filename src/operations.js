@@ -32,11 +32,14 @@ const queryFilter = function (query, filter) {
 };
 
 module.exports = {
-    
+
     changes: function (name) {
+
         R.table(name).changes().run(this.conn).then( (cursor) => {
+
             cursor.each((err,item) => {
-                this.fire('change', [name, item]);
+
+                this.emit('change', name, item);
             });
         }, this.defaultRejecter);
         return this;
@@ -56,10 +59,10 @@ module.exports = {
         R.tableList().run(this.conn).then( (list) => {
 
             const message = this.conn.db + ' has ' + list.join(', ');
-            this.fire('message', [message]);
+            this.emit('message', message);
         }, (err) => {
 
-            this.fire('error', [err.msg]);
+            this.emit('error', err.msg);
         });
         return this;
     },
@@ -69,10 +72,10 @@ module.exports = {
         R.dbList().run(this.conn).then( (list) => {
 
             const message = this.conn.host + ' has dbs \'' + list.join('\', \'') + '\'';
-            this.fire('message', [message]);
+            this.emit('message', message);
         }, () => {
 
-            this.fire('error',[err.msg]);
+            this.emit('error', err.msg);
         });
         return this;
     },
@@ -81,10 +84,10 @@ module.exports = {
 
         R.dbCreate(name).run(this.conn).then( (result) => {
 
-            this.fire('message', [JSON.stringify(result, null, 4)]);
+            this.emit('message', JSON.stringify(result, null, 4));
         }, (err) => {
 
-            this.fire('error', [err.msg]);
+            this.emit('error', err.msg);
         });
         return this;
     },
@@ -120,7 +123,7 @@ module.exports = {
     table: function (name, filter, count, limit, skip) {
 
         if (!name) {
-            this.fire('error', ['I need a table name to do that']);
+            this.emit('error', 'I need a table name to do that');
             return this;
         }
 
@@ -161,7 +164,7 @@ module.exports = {
     insert: function (object,returnChanges) {
 
         if (!object) {
-            this.fire('error', ['No objects specified for \'' + name + '\'']);
+            this.emit('error', 'No objects specified for \'' + name + '\'');
             return this;
         }
 
@@ -192,7 +195,7 @@ module.exports = {
     use: function (name) {
 
         this.conn.use(name);
-        this.fire('message', ['Using ' + name]);
+        this.emit('message', 'Using ' + name);
     },
 
     help: function () {
@@ -200,11 +203,11 @@ module.exports = {
         const message = 'Possible commands are '
             + Object.keys(this.operations).join(', ');
 
-        this.fire('message', [message]);
+        this.emit('message', message);
     },
 
     quit: function () {
 
-        return this.fire('quit');
+        return this.emit('quit');
     }
 };
