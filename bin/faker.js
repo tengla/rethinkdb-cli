@@ -9,15 +9,15 @@ const Fs = require('fs');
 
 (function () {
 
-    if( ! Fs.existsSync('.fakerrc') ) {
+    if ( !Fs.existsSync('.fakerrc') ) {
         return false;
     }
     const contents = Fs.readFileSync('.fakerrc', 'utf8');
     const rc = JSON.parse(contents);
 
-    Args['_'] = Args['_'].length > 0 && Args['_'] || rc.args;
-    Args['name'] = Args['name'] || rc.name;
-    Args['n'] = Args['n'] || rc.n;
+    Args._ = Args._.length > 0 && Args._ || rc.args;
+    Args.name = Args.name || rc.name;
+    Args.n = Args.n || rc.n;
 })();
 
 const schema = Joi.object().keys({
@@ -50,10 +50,10 @@ Joi.validate(Args, schema, (err,val) => {
 
             return errorMessages[detail.path];
         });
-        
+
         if (messages.length > 0) {
             console.log(messages);
-            console.log('\n' + messages.join('\n') + '\n');  
+            console.log('\n' + messages.join('\n') + '\n');
         }
 
         console.log(usage.join('\n'));
@@ -67,7 +67,7 @@ const expressions = Args._.map( (arg) => {
     return '\'' + kv[0] + '\':Faker.' + kv[1];
 });
 
-const code = 'this.fn=function () { return {' + expressions.join(',') +'}}; this.toJSON();';
+const code = 'this.fn=function () { return {' + expressions.join(',') + '}}; this.toJSON();';
 
 const sandbox = Vm.createContext({
     Faker: Faker,
@@ -75,14 +75,16 @@ const sandbox = Vm.createContext({
     name: Args.name || 'fixture',
     fn: null,
     toJSON: function () {
+
         const packed = {};
         packed[this.name] = Array.apply(null, [this.n]).fill(0).map( (item, idx) => {
+
             return this.fn();
         });
         return JSON.stringify(packed, null, 4);
     }
 });
 
-var script = new Vm.Script(code);
-var result = script.runInContext(sandbox);
+const script = new Vm.Script(code);
+const result = script.runInContext(sandbox);
 console.log(result);
