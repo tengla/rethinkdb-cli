@@ -20,10 +20,10 @@ Commander.prototype.connect = function (config) {
     R.connect(config).then( (c) => {
 
         this.conn = c;
-        this.fire('connect', ['Connected to ' + this.status()]);
+        this.emit('connect', 'Connected to ' + this.status());
     }, (err) => {
 
-        this.fire('error', [err.message]);
+        this.emit('error', err.message);
     });
     return this;
 };
@@ -32,23 +32,25 @@ Commander.prototype.operations = require('./operations');
 
 Commander.prototype.defaultResolver = function (result) {
 
-    this.fire('message', [JSON.stringify(result, null, 4)]);
+    this.emit('message', JSON.stringify(result, null, 4));
 };
 
 Commander.prototype.defaultRejecter = function (err) {
 
-    this.fire('error', [err.msg]);
+    this.emit('error', err.msg);
 };
 
-Commander.prototype.exec = function (cmd, args) {
+Commander.prototype.exec = function () {
 
+    const cmd = arguments[0];
+    const args = Array.prototype.slice.call(arguments, 1);
     const op = this.operations[cmd];
 
     if ( op ) {
         op.bind(this).apply(null, args);
     }
     else {
-        this.fire('error', ['No such operation: \'' + Colors.red(cmd) + '\'']);
+        this.emit('error', 'No such operation: \'' + Colors.red(cmd) + '\'');
     }
 
     return this;
@@ -57,13 +59,14 @@ Commander.prototype.exec = function (cmd, args) {
 Commander.prototype.execString = function (line) {
 
     const args = line.split(' ');
-    const cmd  = args.splice(0,1)[0];
 
-    return this.exec(cmd, args);
+    return this.exec.call(this, args);
 };
 
-Commander.prototype.fire = function (name, args) {
+Commander.prototype.emit = function () {
 
+    const name = arguments[0];
+    const args = Array.prototype.slice.call(arguments,1);
     const method = this.observers[name];
     if (!method) {
         return null;
