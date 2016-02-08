@@ -89,11 +89,11 @@ else {
 const runner = function (options,args) {
 
     if (options.dbcreate) {
-        return commander.exec('dbCreate', [options.dbcreate]);
+        return commander.exec('dbCreate', options.dbcreate);
     }
 
     if (options.dbdrop) {
-        return commander.exec('dbDrop', [options.dbdrop]);
+        return commander.exec('dbDrop', options.dbdrop);
     }
 
     if (options.ls) {
@@ -106,38 +106,38 @@ const runner = function (options,args) {
 
     if (options.get) {
         if (!options.table) {
-            return commander.fire('error', ['Can\'t do that without the table switch']);
+            return commander.emit('error', 'Can\'t do that without the table switch');
         }
-        return commander.exec('get', [options.table, options.get]);
+        return commander.exec('get', options.table, options.get);
     }
 
     if (options.changes) {
-        return commander.exec('changes', [options.table]);
+        return commander.exec('changes', options.table);
     }
 
     if (options.table) {
-        return commander.exec('table', [options.table,options.filter,options.count,options.limit, options.skip]);
+        return commander.exec('table', options.table,options.filter,options.count,options.limit, options.skip);
     }
 
     if (options.tablecreate) {
-        return commander.exec('tableCreate', [options.tablecreate]);
+        return commander.exec('tableCreate', options.tablecreate);
     }
 
     if (options.tabledrop) {
-        return commander.exec('tableDrop', [options.tabledrop]);
+        return commander.exec('tableDrop', options.tabledrop);
     }
 
     if (options.delete) {
-        return commander.exec('delete', [options.delete]);
+        return commander.exec('delete', options.delete);
     }
 
     if (options.insert) {
         return Readfile(options.insert).then( (data) => {
 
-            commander.exec('insert', [data, options['return-changes']]);
+            commander.exec('insert', data, options['return-changes']);
         }, (err) => {
 
-            commander.fire('error',[err.msg]);
+            commander.emit('error',err.msg);
         });
     }
 
