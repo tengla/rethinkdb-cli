@@ -52,7 +52,6 @@ Joi.validate(Args, schema, (err,val) => {
         });
 
         if (messages.length > 0) {
-            console.log(messages);
             console.log('\n' + messages.join('\n') + '\n');
         }
 
@@ -63,8 +62,14 @@ Joi.validate(Args, schema, (err,val) => {
 
 const expressions = Args._.map( (arg) => {
 
-    const kv = arg.split('=');
-    return '\'' + kv[0] + '\':Faker.' + kv[1];
+    const key = arg.split('=')[0];
+    const val = arg.split('=')[1];
+
+    if (val.match(/\(.*\)$/)) {
+
+      return '\'' + key + '\':Faker.' + val;
+    }
+    return '\'' + key + '\':\'' + val + '\'';
 });
 
 const code = 'this.fn=function () { return {' + expressions.join(',') + '}}; this.toJSON();';
@@ -88,3 +93,4 @@ const sandbox = Vm.createContext({
 const script = new Vm.Script(code);
 const result = script.runInContext(sandbox);
 console.log(result);
+
