@@ -21,6 +21,9 @@ Usage: node cli.js
       --limit=          limit [optional]
       --skip=           skip [optional]
       --changes         listen to table changes
+      --indexcreate=    create index on table
+      --indexdrop=      drop index from table
+      --indexstatus     index status from table
   -I, --insert=         insert, with reference to json file
   -D, --delete=         delete table contents
       --return-changes  return changes [optional]
