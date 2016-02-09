@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 const GetOpt = require('node-getopt');
 const Recli = require('../index');
 const Readfile = Recli.Readfile;
@@ -17,6 +18,9 @@ const Opts = [
     [''  , 'limit='           , 'limit [optional]'],
     [''  , 'skip='            , 'skip [optional]'],
     [''  , 'changes'          , 'listen to table changes'],
+    [''  , 'indexcreate='     , 'create index on table'],
+    [''  , 'indexdrop='       , 'drop index from table'],
+    [''  , 'indexstatus'      , 'index status from table'],
     ['I' , 'insert='          , 'insert, with reference to json file'],
     ['D' , 'delete='          , 'delete table contents'],
     [''  , 'return-changes'   , 'return changes [optional]'],
@@ -86,6 +90,17 @@ else {
     commander.connect(Config(getOpt.options));
 }
 
+const ensureTable = function (table) {
+    try {
+        assert.ok(table);
+    } catch (err) {
+        console.error('Table is not set. Use --table switch');
+        commander.close();
+        return false;
+    }
+    return true;
+};
+
 const runner = function (options,args) {
 
     if (options.dbcreate) {
@@ -102,6 +117,19 @@ const runner = function (options,args) {
 
     if (options.tablelist) {
         return commander.exec('tableList');
+    }
+    
+    if (options.indexdrop) {
+        return commander.exec('indexDrop', options.table, options.indexdrop);
+    }
+
+    if (options.indexcreate) {
+        return commander.exec('indexCreate', options.table, options.indexcreate);
+    }
+    
+    if (options.indexstatus) {
+        return ensureTable(options.table) && 
+            commander.exec('indexStatus', options.table);
     }
 
     if (options.get) {
@@ -144,4 +172,3 @@ const runner = function (options,args) {
     console.log('Noop. Did you want something?');
     commander.close();
 };
-

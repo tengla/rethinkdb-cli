@@ -54,19 +54,6 @@ module.exports = {
         return this;
     },
 
-    tableList: function () {
-
-        R.tableList().run(this.conn).then( (list) => {
-
-            const message = this.conn.db + ' has ' + list.join(', ');
-            this.emit('message', message);
-        }, (err) => {
-
-            this.emit('error', err.msg);
-        });
-        return this;
-    },
-
     dbList: function () {
 
         R.dbList().run(this.conn).then( (list) => {
@@ -95,6 +82,61 @@ module.exports = {
     dbDrop: function (name) {
 
         R.dbDrop(name).run(this.conn).then(this.defaultResolver.bind(this), this.defaultRejecter.bind(this));
+        return this;
+    },
+
+    delete: function (name) {
+
+        R.table(name).delete().run(this.conn).then(
+            this.defaultResolver.bind(this),
+            this.defaultRejecter.bind(this)
+        );
+        return this;
+    },
+
+    indexCreate: function (table,name) {
+        R.table(table).indexCreate(name).run(this.conn).then(
+            this.defaultResolver.bind(this),
+            this.defaultRejecter.bind(this)
+        );
+        return this;
+    },
+    
+    indexDrop: function (table,name) {
+        R.table(table).indexDrop(name).run(this.conn).then(
+            this.defaultResolver.bind(this),
+            this.defaultRejecter.bind(this)
+        );
+        return this;
+    },
+
+    indexStatus: function (table) {
+        R.table(table).indexStatus().run(this.conn).then(
+            this.defaultResolver.bind(this),
+            this.defaultRejecter.bind(this)
+        );
+        return this;
+    },
+
+    insert: function (object,returnChanges) {
+
+        if (!object) {
+            this.emit('error', 'No objects specified for \'' + name + '\'');
+            return this;
+        }
+
+        const tables = Object.keys(object);
+
+        const promises = tables.map( (table) => {
+
+            return R.table(table).insert(object[table],{ returnChanges: returnChanges }).run(this.conn);
+        });
+
+        Promise.all(promises).then(
+            this.defaultResolver.bind(this),
+            this.defaultRejecter.bind(this)
+        );
+
         return this;
     },
 
@@ -161,34 +203,16 @@ module.exports = {
         return this;
     },
 
-    insert: function (object,returnChanges) {
+    tableList: function () {
 
-        if (!object) {
-            this.emit('error', 'No objects specified for \'' + name + '\'');
-            return this;
-        }
+        R.tableList().run(this.conn).then( (list) => {
 
-        const tables = Object.keys(object);
+            const message = list.length > 0 ? this.conn.db + ' has ' + list.join(', ') : this.conn.db + ' is empty';
+            this.emit('message', message);
+        }, (err) => {
 
-        const promises = tables.map( (table) => {
-
-            return R.table(table).insert(object[table],{ returnChanges: returnChanges }).run(this.conn);
+            this.emit('error', err.msg);
         });
-
-        Promise.all(promises).then(
-            this.defaultResolver.bind(this),
-            this.defaultRejecter.bind(this)
-        );
-
-        return this;
-    },
-
-    delete: function (name) {
-
-        R.table(name).delete().run(this.conn).then(
-            this.defaultResolver.bind(this),
-            this.defaultRejecter.bind(this)
-        );
         return this;
     },
 
