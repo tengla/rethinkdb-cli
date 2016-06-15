@@ -7,7 +7,7 @@
     "start": "node ./bin/cli.js",
     "repl": "node ./bin/repl.js",
     "faker": "node ./bin/faker.js",
-    "test": "lab -c -L"
+    "test": "lab"
   },
   "author": "",
   "license": "ISC",
@@ -18,14 +18,14 @@
   "dependencies": {
     "colors": "^1.1.2",
     "faker": "^3.0.1",
-    "joi": "^7.2.3",
+    "joi": "^8.4.2",
     "lodash": "^4.2.0",
     "minimist": "^1.2.0",
     "node-getopt": "^0.2.3",
-    "rethinkdb": "^2.2.1"
+    "rethinkdb": "^2.3.2"
   },
   "devDependencies": {
-    "code": "^2.1.0",
-    "lab": "^8.2.0"
+    "code": "^3.0.1",
+    "lab": "^10.8.2"
   }
 }
