@@ -59,7 +59,7 @@ const rl = Readline.createInterface({
     output: process.stdout,
     completer: (line) => {
 
-        const completions = 'delete table tables quit'.split(' ');
+        const completions = 'table tableList quit'.split(' ');
         const hits = completions.filter((c) => {
 
             return c.indexOf(line) === 0;
