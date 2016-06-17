@@ -66,8 +66,7 @@ const expressions = Args._.map( (arg) => {
     const val = arg.split('=')[1];
 
     if (val.match(/\(.*\)$/)) {
-
-      return '\'' + key + '\':Faker.' + val;
+        return '\'' + key + '\':Faker.' + val;
     }
     return '\'' + key + '\':\'' + val + '\'';
 });
