@@ -1,6 +1,6 @@
 'use strict';
 
-const assert = require('assert');
+const Assert = require('assert');
 const GetOpt = require('node-getopt');
 const Recli = require('../index');
 const Readfile = Recli.Readfile;
@@ -22,6 +22,8 @@ const Opts = [
     [''  , 'indexdrop='       , 'drop index from table'],
     [''  , 'indexstatus'      , 'index status from table'],
     ['I' , 'insert='          , 'insert, with reference to json file'],
+    ['u' , 'update='          , 'update table. Use with --get and --json'],
+    [''  , 'json='            , 'json data'],
     ['D' , 'delete='          , 'delete table contents'],
     [''  , 'return-changes'   , 'return changes [optional]'],
     [''  , 'dbcreate='        , 'create db'],
@@ -91,9 +93,11 @@ else {
 }
 
 const ensureTable = function (table) {
+
     try {
-        assert.ok(table);
-    } catch (err) {
+        Assert.ok(table);
+    }
+    catch (err) {
         console.error('Table is not set. Use --table switch');
         commander.close();
         return false;
@@ -118,7 +122,7 @@ const runner = function (options,args) {
     if (options.tablelist) {
         return commander.exec('tableList');
     }
-    
+
     if (options.indexdrop) {
         return commander.exec('indexDrop', options.table, options.indexdrop);
     }
@@ -126,21 +130,19 @@ const runner = function (options,args) {
     if (options.indexcreate) {
         return commander.exec('indexCreate', options.table, options.indexcreate);
     }
-    
-    if (options.indexstatus) {
-        return ensureTable(options.table) && 
-            commander.exec('indexStatus', options.table);
-    }
 
-    if (options.get) {
-        if (!options.table) {
-            return commander.emit('error', 'Can\'t do that without the table switch');
-        }
-        return commander.exec('get', options.table, options.get);
+    if (options.indexstatus) {
+        return ensureTable(options.table) &&
+            commander.exec('indexStatus', options.table);
     }
 
     if (options.changes) {
         return commander.exec('changes', options.table);
+    }
+
+    if (options.table && options.get) {
+
+        return commander.exec('get', options.table, options.get);
     }
 
     if (options.table) {
@@ -167,6 +169,10 @@ const runner = function (options,args) {
 
             commander.emit('error',err.msg);
         });
+    }
+
+    if (options.update && options.get && options.json) {
+        return commander.exec('update',options.update,options.get,options.json);
     }
 
     console.log('Noop. Did you want something?');
