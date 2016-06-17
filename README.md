@@ -2,7 +2,7 @@
 
 NodeJS CLI runner and REPL for [Rethinkdb](https://github.com/rethinkdb/rethinkdb)
 
-Work in progress, but it's still highly usable. Expect to see a wrinkle here and there, especially in the REPL. Shout out. Or fork, fix and pull a request.
+Work in progress, but it's still highly usable. Shout out, fork, fix and do pull request.
 
 ### CLI 
 
@@ -139,6 +139,11 @@ node ./bin/cli.js --host localhost --db test -t people --limit 100 --skip 500000
 Now you might want to clear the whole table.
 ```
 node ./bin/cli.js --host localhost --db test -D people
+```
+
+Update a row.
+```
+node ./bin/cli.js --host localhost --db test -u people --get '123' --json '{"name":"Jane Doe"}'
 ```
 
 ### Author
