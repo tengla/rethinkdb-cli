@@ -38,6 +38,13 @@ lab.experiment('Readfile', () => {
             done();
         }, done);
     });
+
+    lab.test('it doesn\'t read when file is not present', (done) => {
+
+        Readfile('./no-file.json').then( () => {}, (err) => {
+
+            expect(err.code).to.equal('ENOENT');
+            done();
+        });
+    });
 });
-
-
