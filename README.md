@@ -15,7 +15,7 @@ Usage: node cli.js
   -C, --tablecreate=    create table
       --tabledrop=      drop table
   -t, --table=          list table content
-      --filter=         filter by attribute:value [optional]
+      --filter=         filter by 'key operator value'
       --get=            get object by id [optional]
       --count           count [optional]
       --limit=          limit [optional]
@@ -25,6 +25,8 @@ Usage: node cli.js
       --indexdrop=      drop index from table
       --indexstatus     index status from table
   -I, --insert=         insert, with reference to json file
+  -u, --update=         update table. Use with --get and --json
+      --json=           json data
   -D, --delete=         delete table contents
       --return-changes  return changes [optional]
       --dbcreate=       create db
@@ -128,7 +130,7 @@ node ./bin/cli.js --host localhost --db test -t people
 
 You can filter too.
 ```
-node ./bin/cli.js --host localhost --db test -t people --filter city:'Hilda.*$'
+node ./bin/cli.js --host localhost --db test -t people --filter 'city match Hilda.*$'
 ```
 
 You might have a few million records. Narrow it down some.
