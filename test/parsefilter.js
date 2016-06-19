@@ -17,11 +17,23 @@ lab.experiment('ParseFilter', () => {
         done();
     });
 
-    lab.test('it returns the right ops', (done) => {
+    lab.test('it returns a function', (done) => {
 
-        const op = new ParseFilter()
+        const pf = new ParseFilter()
             .exec('name eq \'John Doe\'');
-        expect(op).to.be.function();
+        expect(pf).to.be.function();
+        done();
+    });
+
+    lab.test('normalize', (done) => {
+
+        const pf = new ParseFilter();
+        const normalized = pf.normalize({
+            key: 'name',
+            ops: 'lt',
+            value: 23
+        });
+        expect(normalized.value).to.equal(23);
         done();
     });
 });

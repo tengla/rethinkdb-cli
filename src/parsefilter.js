@@ -9,6 +9,7 @@ const Qf = function (filter) {
     this.filter = filter;
 };
 
+/* $lab:coverage:off$ */
 Qf.prototype.ops = function (args) {
 
     const _ = {
@@ -50,6 +51,7 @@ Qf.prototype.ops = function (args) {
     };
     return _[args.ops].call(undefined).bind(args);
 };
+/* $lab:coverage:on$ */
 
 Qf.prototype.destructure = function (filter) {
 
@@ -66,11 +68,12 @@ Qf.prototype.exec = function (filter) {
     return this.ops(this.destructure(filter));
 };
 
-Qf.prototype.normalize = function (_obj) {
+Qf.prototype.normalize = function (obj) {
 
-    const obj = Hoek.clone(_obj);
     if (typeof obj.value === 'string' && obj.value.match(/^\d+$/)) {
-        obj.value = Number(obj.value).valueOf();
+        return Hoek.merge(obj, {
+            value: Number(obj.value).valueOf()
+        });
     }
     return obj;
 };
