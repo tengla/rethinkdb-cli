@@ -7,6 +7,8 @@ const Commander = require('../index').Commander;
 const lab = exports.lab = Lab.script();
 let commander;
 
+const host = process.env['RETHINKDB_2.3.4_PORT_28015_TCP_ADDR'] || 'localhost';
+
 lab.experiment('Commander', () => {
 
     lab.beforeEach( (done) => {
@@ -22,7 +24,7 @@ lab.experiment('Commander', () => {
             expect(msg).to.match(/Connected to/);
             done();
         });
-        commander.connect({ db: 'test' });
+        commander.connect({ host: host, db: 'test' });
     });
 
     lab.test('does not connect', (done) => {
@@ -40,7 +42,7 @@ lab.experiment('Commander', () => {
             done();
         });
 
-        commander.connect({ db: 'test' });
+        commander.connect({ host: host, db: 'test' });
     });
 
     lab.test('it has status \'not connected\'', (done) => {
@@ -54,10 +56,10 @@ lab.experiment('Commander', () => {
 
         commander.on('connect', () => {
 
-            expect(commander.status()).to.equal('localhost:28015/test');
+            expect(commander.status()).to.equal(`${host}:28015/test`);
             done();
         });
-        commander.connect({ db: 'test' });
+        commander.connect({ host: host, db: 'test' });
     });
 
     lab.test('execString', (done) => {
@@ -73,7 +75,7 @@ lab.experiment('Commander', () => {
             commander.execString('tableList');
         });
 
-        commander.connect({ db: 'test' });
+        commander.connect({ host: host, db: 'test' });
     });
 
     lab.test('emit', (done) => {
@@ -102,7 +104,7 @@ lab.experiment('Commander', () => {
 
     lab.test('close', (done) => {
 
-        commander.connect({ db: 'test' });
+        commander.connect({ host: host, db: 'test' });
         commander.on('connect', () => {
 
             commander.close();
@@ -118,7 +120,7 @@ lab.experiment('Commander', () => {
 
     lab.test('use', (done) => {
 
-        commander.connect({ db: 'test' });
+        commander.connect({ host: host, db: 'test' });
 
         commander.on('message', (msg) => {
 
@@ -145,6 +147,6 @@ lab.experiment('Commander', () => {
             expect(commander.operations.tableList.call(commander)).to.equal(commander);
             done();
         });
-        commander.connect({ db: 'bogus' });
+        commander.connect({ host: host, db: 'bogus' });
     });
 });

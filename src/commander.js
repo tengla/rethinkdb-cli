@@ -4,11 +4,10 @@ const R = require('rethinkdb');
 const Colors = require('colors/safe');
 const ParseFilter = require('./parsefilter');
 
-const Commander = function (config) {
+const Commander = function () {
 
     this.conn = null;
     this.observers = {};
-    this.store = {};
 };
 
 Commander.prototype.close = function () {
