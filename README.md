@@ -2,6 +2,8 @@
 
 NodeJS CLI runner and REPL for [Rethinkdb](https://github.com/rethinkdb/rethinkdb)
 
+[![Build Status](https://travis-ci.org/athlite/rethinkdb-cli.svg?branch=master)](https://travis-ci.org/athlite/rethinkdb-cli)
+
 Work in progress, but it's still highly usable. Shout out, fork, fix and do pull request.
 
 ### CLI 
