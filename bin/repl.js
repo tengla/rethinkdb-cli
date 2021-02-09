@@ -26,7 +26,9 @@ const usage = [
     '\t--host <host>',
     '\t--port <port>',
     '\t--db <name>',
-    '\t--auth_key <auth_key>'
+    '\t--auth_key <auth_key>',
+    '\t--username <username>',
+    '\t--password <password>',
 ];
 
 Joi.validate(Args, schema, (err,val) => {
@@ -45,7 +47,7 @@ Joi.validate(Args, schema, (err,val) => {
 
 const Config = function (args) {
 
-    const keys = ['host','port','db','auth_key'];
+    const keys = ['host','port','db','auth_key','username','password'];
     const conf = {};
     keys.forEach( (k) => {
 
