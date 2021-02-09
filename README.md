@@ -28,7 +28,7 @@ Usage: node cli.js
   -u, --update=         update table. Use with --get and --json
       --json=           json data
   -D, --delete=         delete all table contents
-      --delete-id=      specify id for --delete parameter
+      --delete-id=      specify id for --delete parameter [optional]
       --return-changes  return changes [optional]
       --dbcreate=       create db
       --dbdrop=         drop db
