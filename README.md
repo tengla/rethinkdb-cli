@@ -27,7 +27,8 @@ Usage: node cli.js
   -I, --insert=         insert, with reference to json file
   -u, --update=         update table. Use with --get and --json
       --json=           json data
-  -D, --delete=         delete table contents
+  -D, --delete=         delete all table contents
+      --delete-id=      specify id for --delete parameter [optional]
       --return-changes  return changes [optional]
       --dbcreate=       create db
       --dbdrop=         drop db
@@ -37,7 +38,9 @@ Usage: node cli.js
       --db=             db name
       --host=           hostname
       --port=           port number
-      --auth_key=       authentication key
+      --username=       username
+      --password=       password
+      --auth_key=       authentication key (alternative authentication)
 ```
 
 ### REPL
@@ -141,6 +144,11 @@ node ./bin/cli.js --host localhost --db test -t people --limit 100 --skip 500000
 Now you might want to clear the whole table.
 ```
 node ./bin/cli.js --host localhost --db test -D people
+```
+
+Or simply delete a single record by id.
+```
+node ./bin/cli.js --host localhost --db test -D people --delete-id=036fb25b-f225-4b99-9f60-8267424b9ba0
 ```
 
 Update a row.

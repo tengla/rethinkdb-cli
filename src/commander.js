@@ -82,12 +82,20 @@ Commander.prototype.operations = {
         return this;
     },
 
-    delete: function (name) {
+    delete: function (name, id) {
 
-        R.table(name).delete().run(this.conn).then(
-            this.defaultResolver.bind(this),
-            this.defaultRejecter.bind(this)
-        );
+        if(id && id != '' && typeof id !== 'undefined'){
+            R.table('t_saas_tokens').get(id).delete().run(this.conn).then(
+                this.defaultResolver.bind(this),
+                this.defaultRejecter.bind(this)
+            );
+
+        } else {
+            R.table(name).delete().run(this.conn).then(
+                this.defaultResolver.bind(this),
+                this.defaultRejecter.bind(this)
+            );
+        }
         return this;
     },
 

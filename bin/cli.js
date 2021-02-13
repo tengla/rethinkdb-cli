@@ -24,17 +24,20 @@ const Opts = [
     ['I' , 'insert='          , 'insert, with reference to json file'],
     ['u' , 'update='          , 'update table. Use with --get and --json'],
     [''  , 'json='            , 'json data'],
-    ['D' , 'delete='          , 'delete table contents'],
+    ['D' , 'delete='          , 'delete all table contents'],
+    [''  , 'delete-id='       , 'specify id for --delete parameter'],
     [''  , 'return-changes'   , 'return changes [optional]'],
     [''  , 'dbcreate='        , 'create db'],
     [''  , 'dbdrop='          , 'drop db'],
-    ['h'  , 'help'            , 'display this help'],
+    ['h' , 'help'             , 'display this help'],
     ['v' , 'version'          , 'show version'],
     [''  , 'verbose'          , 'be verbose'],
     [''  , 'db='              , 'db name'],
     [''  , 'host='            , 'hostname'],
     [''  , 'port='            , 'port number'],
-    [''  , 'auth_key='        , 'authentication key']
+    [''  , 'username='        , 'username'],
+    [''  , 'password='        , 'password'],
+    [''  , 'auth_key='        , 'authentication key (alternative authentication)']
 ];
 
 const Config = function (options) {
@@ -43,7 +46,9 @@ const Config = function (options) {
         db: options.db || 'test',
         host: options.host,
         port: options.port,
-        auth_key: options.auth_key
+        auth_key: options.auth_key,
+        username: options.username,
+        password: options.password
     };
 };
 
@@ -158,7 +163,7 @@ const runner = function (options,args) {
     }
 
     if (options.delete) {
-        return commander.exec('delete', options.delete);
+        return commander.exec('delete', options.delete, options['delete-id']);
     }
 
     if (options.insert) {
